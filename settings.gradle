@@ -1,0 +1,8 @@
+rootProject.name = 'mppProject'
+include 'Persistance'
+include 'Model'
+include 'Networking'
+include 'Server'
+include 'Client'
+include 'Service'
+

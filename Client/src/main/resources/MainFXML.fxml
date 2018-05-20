@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="427.0" prefWidth="592.0"
+            xmlns="http://javafx.com/javafx/8.0.121" fx:controller="client.MainController">
+    <children>
+        <TableView fx:id="tableViewCurse" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="198.0">
+            <columns>
+                <TableColumn fx:id="tableColumnIdCursa" prefWidth="51.0" text="idCursa"/>
+                <TableColumn fx:id="tableColumnCapacitate" prefWidth="64.0" text="Capacitate"/>
+                <TableColumn fx:id="tableColumnNr" prefWidth="75.0" text="Nr"/>
+            </columns>
+        </TableView>
+        <TableView fx:id="tableViewEchipa" layoutX="385.0" layoutY="71.0" prefHeight="200.0" prefWidth="198.0">
+            <columns>
+                <TableColumn fx:id="tableColumnNume" prefWidth="122.0" text="nume"/>
+                <TableColumn fx:id="tableColumnCapEchipe" prefWidth="66.0" text="capacitate"/>
+            </columns>
+        </TableView>
+        <Button layoutX="385.0" layoutY="46.0" mnemonicParsing="false" onAction="#handleCauta" text="Cautare"/>
+        <TextField fx:id="searchEchipa" layoutX="385.0" layoutY="21.0"/>
+        <Label layoutX="385.0" layoutY="6.0" text="Nume Echipa"/>
+        <Label layoutX="15.0" layoutY="228.0" text="Inrregistrare Participant nou:"/>
+        <Label layoutX="14.0" layoutY="282.0" text="Nume"/>
+        <TextField fx:id="ParticipantNume" layoutX="15.0" layoutY="299.0"/>
+        <Label layoutX="17.0" layoutY="324.0" text="Capacitatea motorului"/>
+        <ComboBox fx:id="comboBox" layoutX="15.0" layoutY="341.0" prefWidth="150.0"/>
+        <Label layoutX="17.0" layoutY="366.0" text="Echipa"/>
+        <TextField fx:id="ParticipantEchipa" layoutX="15.0" layoutY="383.0"/>
+        <Button layoutX="442.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleLogOut" text="Logout"/>
+        <Button layoutX="181.0" layoutY="383.0" mnemonicParsing="false" onAction="#handleSaveParticipant"
+                text="Inregistrare"/>
+        <TextField fx:id="ParticipantId" layoutX="15.0" layoutY="259.0"/>
+        <Label layoutX="17.0" layoutY="245.0" text="ID"/>
+    </children>
+</AnchorPane>

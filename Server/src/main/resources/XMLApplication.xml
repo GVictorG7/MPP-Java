@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <util:properties id="jdbcProps" location="classpath:db.config"/>
+
+    <bean id="curseJdbcRepo" class="repo.CurseJdbcRepo">
+        <constructor-arg ref="jdbcProps"/>
+    </bean>
+
+    <bean id="operatorJdbcRepo" class="repo.OperatorJdbcRepo">
+        <constructor-arg ref="jdbcProps"/>
+    </bean>
+
+    <bean id="participantJdbcRepo" class="repo.ParticipantJdbcRepo">
+        <constructor-arg ref="jdbcProps"/>
+    </bean>
+
+    <bean id="serverImplementation" class="server.ServerImplementation">
+        <constructor-arg ref="curseJdbcRepo" index="0"/>
+        <constructor-arg ref="operatorJdbcRepo" index="1"/>
+        <constructor-arg ref="participantJdbcRepo" index="2"/>
+    </bean>
+
+</beans>
