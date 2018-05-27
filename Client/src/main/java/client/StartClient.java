@@ -12,6 +12,7 @@ import java.rmi.registry.Registry;
 
 public class StartClient extends Application {
     private StageManager stageManager = null;
+//    private MainControllerSerializable controller;
 
     private void displayInitialScene() throws IOException {
         //FXMLLoader loader = new FXMLLoader();
@@ -19,6 +20,8 @@ public class StartClient extends Application {
 
         //loader.setLocation(getClass().getResource("C:\\Users\\GVG\\IdeaProjects\\mppProject - hibernate\\Client\\src\\main\\resources\\OperatorFXML.fxml"));
         Parent rootNode = loader.load();
+//        OperatorController operatorController = loader.getController();
+//        operatorController.addController(this.controller);
         stageManager.switchScene(FXMLEnum.LOGIN, rootNode, loader.getController());
     }
 

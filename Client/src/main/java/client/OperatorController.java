@@ -21,9 +21,14 @@ public class OperatorController implements IController, Remote {
     private PasswordField pass;
     private StageManager stageManager;
     private IService service;
+//    private MainControllerSerializable controller;
 
     public OperatorController() {
     }
+
+//    public void addController(MainControllerSerializable controller) {
+//        this.controller = controller;
+//    }
 
     @FXML
     public void handleLogin(ActionEvent actionEvent) {
@@ -31,6 +36,8 @@ public class OperatorController implements IController, Remote {
             login();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainFXML.fxml"));
             Parent rootNode = loader.load();
+//            MainController mainController = loader.getController();
+//            mainController.setController(controller);
             stageManager.switchScene(FXMLEnum.MAIN, rootNode, loader.getController());
         } catch (IOException e) {
             e.printStackTrace();
@@ -62,8 +69,6 @@ public class OperatorController implements IController, Remote {
 
     @FXML
     void initialize() {
-//        assert this.user != null : "fx:id=\"user\" was not injected: check your FXML file 'LoginPage.fxml'.";
-//        assert this.pass != null : "fx:id=\"pass\" was not injected: check your FXML file 'LoginPage.fxml'.";
     }
 
     @Override

@@ -21,9 +21,10 @@ import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
-public class MainController implements IObserver, IController, Serializable, Remote {
+public class MainController implements IObserver, IController, Remote, Serializable {
     private IService srv;
     private StageManager stageManager;
+//    private MainControllerSerializable controller;
 
     @FXML
     private TableView<Cursa> tableViewCurse;
@@ -50,8 +51,12 @@ public class MainController implements IObserver, IController, Serializable, Rem
     @FXML
     private TextField ParticipantEchipa;
 
+//    public void setController(MainControllerSerializable controller) {
+//        this.controller = controller;
+//    }
+
     @FXML
-    void handleLogOut(ActionEvent event) throws IOException {
+    public void handleLogOut(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(FXMLEnum.LOGIN.getFxmlFile()));
         Parent rootNode = loader.load();
@@ -59,22 +64,22 @@ public class MainController implements IObserver, IController, Serializable, Rem
     }
 
     @FXML
-    void handleSaveParticipant(ActionEvent event) {
+    public void handleSaveParticipant(ActionEvent event) {
         try {
             int capacitate = tableViewCurse.getSelectionModel().getSelectedItem().getCap();
             int idCursa = tableViewCurse.getSelectionModel().getSelectedItem().getId();
 
+//            controller.handleSaveParticipant(Integer.valueOf(ParticipantId.getText()), ParticipantNume.getText(), ParticipantEchipa.getText(), capacitate, idCursa);
             srv.saveParticipant(Integer.valueOf(ParticipantId.getText()), ParticipantNume.getText(), ParticipantEchipa.getText(), capacitate, idCursa);
             tableViewCurse.setItems(FXCollections.observableArrayList(srv.getAllCurse()));
             tableViewEchipa.setItems(FXCollections.observableArrayList(srv.getAllParticipanti()));
-            //handlecomboBoxFilter();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
     @FXML
-    void handleCauta(ActionEvent event) {
+    public void handleCauta(ActionEvent event) {
         try {
             String nume = searchEchipa.getText();
             tableViewEchipa.setItems(FXCollections.observableArrayList(srv.getByEchipe(nume)));
@@ -95,7 +100,7 @@ public class MainController implements IObserver, IController, Serializable, Rem
         initTable();
     }
 
-    public void initTable() {
+    private void initTable() {
         try {
             //handlecomboBoxFilter();
             tableColumnNume.setCellValueFactory(new PropertyValueFactory<Participant, String>("nume"));
@@ -126,5 +131,4 @@ public class MainController implements IObserver, IController, Serializable, Rem
         });
         System.out.println("dupa");
     }
-
 }

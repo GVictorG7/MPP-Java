@@ -1,6 +1,9 @@
 package domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.rmi.Remote;
 
@@ -8,7 +11,7 @@ import java.rmi.Remote;
 @Table(name = "Operatori")
 public class Operator implements Serializable, Remote {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -17,6 +20,9 @@ public class Operator implements Serializable, Remote {
 
     @Column(name = "pass")
     private String pass;
+
+    public Operator() {
+    }
 
     public Operator(int id, String name, String pass) {
         this.id = id;
@@ -38,11 +44,23 @@ public class Operator implements Serializable, Remote {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPass() {
         return pass;
     }
 
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

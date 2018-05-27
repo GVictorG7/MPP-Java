@@ -8,7 +8,7 @@
 
         <property name="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
-        <property name="connection.url">jdbc:sqlite:events.db</property>
+        <property name="connection.url">jdbc:sqlite:project.db</property>
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
@@ -17,9 +17,9 @@
         <property name="format_sql">true</property>
 
 
-        <mapping resource="hello/Message.hbm.xml"/>
+        <!--<mapping resource="hello/Message.hbm.xml"/>-->
 
-        <mapping resource="event/hbm/Event.hbm.xml"/>
+        <!--<mapping resource="event/hbm/Event.hbm.xml"/>-->
         <mapping class="domain.Operator"/>
     </session-factory>
 </hibernate-configuration>
