@@ -43,6 +43,18 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
         }
     }
 
+    public void update(Cursa cursa) {
+        Connection con = jdbcUtils.getConnection();
+        try (PreparedStatement prep = con.prepareStatement("update Curse set cap=? where id=?")) {
+            prep.setInt(1, cursa.getCap());
+            prep.setInt(2, cursa.getId());
+            int res = prep.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Curse update error" + ex);
+            ex.printStackTrace();
+        }
+    }
+
     @Override
     public void delete(int id) {
         Connection con = jdbcUtils.getConnection();

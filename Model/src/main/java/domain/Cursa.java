@@ -14,6 +14,15 @@ public class Cursa implements Serializable, Remote {
         this.nrPart = nrPart;
     }
 
+    public Cursa(String id, String cap, String nrPart) {
+        this.id = Integer.parseInt(id);
+        this.cap = Integer.parseInt(cap);
+        this.nrPart = Integer.parseInt(nrPart);
+    }
+
+    public Cursa() {
+    }
+
     public int getCap() {
         return cap;
     }
