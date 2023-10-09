@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class ParticipantiService implements Observable<Participant> {
-    private ArrayList<Observer<Participant>> participantObserver = new ArrayList<>();
-    private ParticipantJdbcRepo repo;
+    private final List<Observer<Participant>> participantObserver = new ArrayList<>();
+    private final ParticipantJdbcRepo repo;
 
     public ParticipantiService(Properties properties) {
         repo = new ParticipantJdbcRepo(properties);
@@ -25,17 +25,16 @@ public class ParticipantiService implements Observable<Participant> {
 
     public void save(Participant participant) {
         repo.save(participant);
-        ArrayList<Participant> p = new ArrayList<>();
-        repo.findAll().forEach(p::add);
+        ArrayList<Participant> p = new ArrayList<>(repo.findAll());
         ListEvent<Participant> ev = createEvent(ListEventType.ADD, participant, p);
         notifyObservers(ev);
     }
 
-    public ArrayList<Participant> getParticipanti() {
+    public List<Participant> getParticipanti() {
         return repo.findAll();
     }
 
-    public ArrayList<Participant> getByEchipa(String echipa) {
+    public List<Participant> getByEchipa(String echipa) {
         return repo.getParticipantiByEchipa(echipa);
     }
 

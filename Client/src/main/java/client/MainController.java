@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,7 +23,6 @@ import java.rmi.RemoteException;
 public class MainController implements IObserver, IController, Remote, Serializable {
     private IService srv;
     private StageManager stageManager;
-//    private MainControllerSerializable controller;
 
     @FXML
     private TableView<Cursa> tableViewCurse;
@@ -41,8 +39,6 @@ public class MainController implements IObserver, IController, Remote, Serializa
     @FXML
     private TableColumn tableColumnCapEchipe;
     @FXML
-    private ComboBox<Integer> comboBox;
-    @FXML
     private TextField searchEchipa;
     @FXML
     private TextField ParticipantId;
@@ -50,10 +46,6 @@ public class MainController implements IObserver, IController, Remote, Serializa
     private TextField ParticipantNume;
     @FXML
     private TextField ParticipantEchipa;
-
-//    public void setController(MainControllerSerializable controller) {
-//        this.controller = controller;
-//    }
 
     @FXML
     public void handleLogOut(ActionEvent event) throws IOException {
@@ -69,8 +61,7 @@ public class MainController implements IObserver, IController, Remote, Serializa
             int capacitate = tableViewCurse.getSelectionModel().getSelectedItem().getCap();
             int idCursa = tableViewCurse.getSelectionModel().getSelectedItem().getId();
 
-//            controller.handleSaveParticipant(Integer.valueOf(ParticipantId.getText()), ParticipantNume.getText(), ParticipantEchipa.getText(), capacitate, idCursa);
-            srv.saveParticipant(Integer.valueOf(ParticipantId.getText()), ParticipantNume.getText(), ParticipantEchipa.getText(), capacitate, idCursa);
+            srv.saveParticipant(Integer.parseInt(ParticipantId.getText()), ParticipantNume.getText(), ParticipantEchipa.getText(), capacitate, idCursa);
             tableViewCurse.setItems(FXCollections.observableArrayList(srv.getAllCurse()));
             tableViewEchipa.setItems(FXCollections.observableArrayList(srv.getAllParticipanti()));
         } catch (RemoteException e) {
@@ -102,7 +93,6 @@ public class MainController implements IObserver, IController, Remote, Serializa
 
     private void initTable() {
         try {
-            //handlecomboBoxFilter();
             tableColumnNume.setCellValueFactory(new PropertyValueFactory<Participant, String>("nume"));
             tableColumnCapEchipe.setCellValueFactory(new PropertyValueFactory<Participant, Integer>("cap"));
             tableColumnIdCursa.setCellValueFactory(new PropertyValueFactory<Cursa, Integer>("id"));
@@ -117,18 +107,13 @@ public class MainController implements IObserver, IController, Remote, Serializa
 
     @Override
     public void update() {
-        System.out.println("aici");
-        Platform.runLater(new Runnable() {
-            public void run() {
-                System.out.println("Mesaj");
-                try {
-                    tableViewCurse.setItems(FXCollections.observableArrayList(srv.getAllCurse()));
-                    tableViewEchipa.setItems(FXCollections.observableArrayList(srv.getAllParticipanti()));
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+        Platform.runLater(() -> {
+            try {
+                tableViewCurse.setItems(FXCollections.observableArrayList(srv.getAllCurse()));
+                tableViewEchipa.setItems(FXCollections.observableArrayList(srv.getAllParticipanti()));
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
         });
-        System.out.println("dupa");
     }
 }

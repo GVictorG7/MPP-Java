@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class OperatorJdbcRepo implements IRepository<Operator> {
-    private JdbcUtils jdbcUtils;
+    private final JdbcUtils jdbcUtils;
 
     public OperatorJdbcRepo(Properties props) {
         jdbcUtils = new JdbcUtils(props);
@@ -38,7 +38,7 @@ public class OperatorJdbcRepo implements IRepository<Operator> {
             preStmt.setInt(1, operator.getId());
             preStmt.setString(2, operator.getName());
             preStmt.setString(3, operator.getPass());
-            int res = preStmt.executeUpdate();
+            preStmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Err DB " + ex);
         }
@@ -49,7 +49,7 @@ public class OperatorJdbcRepo implements IRepository<Operator> {
         Connection con = jdbcUtils.getConnection();
         try (PreparedStatement prep = con.prepareStatement("DELETE FROM Operatori WHERE id=?")) {
             prep.setInt(1, id);
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("err DB " + ex);
         }

@@ -17,13 +17,13 @@ import utils.Observer;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Properties;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class OperatorController implements Observer<Operator> {
-    private ObservableList<Operator> model = FXCollections.observableArrayList();
-    private OperatorService service;
+    private final ObservableList<Operator> model = FXCollections.observableArrayList();
+    private final OperatorService service;
 
     @FXML
     private TextField user;
@@ -42,7 +42,7 @@ public class OperatorController implements Observer<Operator> {
 
     @Override
     public void notifyEvent(ListEvent<Operator> e) {
-        model.setAll(StreamSupport.stream(e.getList().spliterator(), false).collect(Collectors.toList()));
+        model.setAll(new ArrayList<>(e.getList()));
     }
 
     @FXML
@@ -51,7 +51,7 @@ public class OperatorController implements Observer<Operator> {
             Stage parent = (Stage) user.getScene().getWindow();
             parent.hide();
             try {
-                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainFXML.fxml"));
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("MainFXML.fxml")));
                 Stage stage = new Stage();
                 stage.setTitle("Main");
                 stage.setScene(new Scene(root, 650, 480));

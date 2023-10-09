@@ -15,14 +15,13 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 public class ServerRPCWorker implements Runnable, IObserver {
-    private static Response okResponse = new Response.Builder().type(ResponseType.OK).build();
-    private IService service;
-    private Socket connection;
+    private final IService service;
+    private final Socket connection;
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private volatile boolean connected;
 
-    public ServerRPCWorker(IService service, Socket connection) {
+    ServerRPCWorker(IService service, Socket connection) {
         this.service = service;
         this.connection = connection;
         try {
@@ -57,8 +56,6 @@ public class ServerRPCWorker implements Runnable, IObserver {
     }
 
     private Response handleRequest(Request request) {
-        Response response = null;
-
         if (request.type() == RequestType.LOGIN) {
             System.out.println("Login request ..." + request.type());
             System.out.println(request.data());
@@ -103,21 +100,6 @@ public class ServerRPCWorker implements Runnable, IObserver {
             return new Response.Builder().type(ResponseType.GET_ALL_PARTICIPANTI).data(allParticipant).build();
         }
 
-//        if (request.type() == RequestType.GET_ALL_ECHIPE) {
-//            System.out.println("Get all echipe request");
-//            List<Echipe> allParticipant;
-//            try {
-//                allParticipant = service.getAllEchipe();
-//                if (allParticipant == null) {
-//                    throw new MyException("Nu exista echipe");
-//                }
-//            } catch (MyException e) {
-//                connected = false;
-//                return new Response.Builder().type(ResponseType.ERROR).data(e.getMessage()).build();
-//            }
-//            return new Response.Builder().type(ResponseType.GET_ALL_EHIPE).data(allParticipant).build();
-//        }
-
         if (request.type() == RequestType.GET_BY_ECHIPA) {
             System.out.println("Get all echipe request");
             List<Participant> allParticipant;
@@ -145,25 +127,8 @@ public class ServerRPCWorker implements Runnable, IObserver {
             }
             return new Response.Builder().type(ResponseType.OK).build();
         }
-
-//        if (request.type()==RequestType.LOGOUT){
-//            System.out.println("Logout request");
-//           // LogoutRequest logReq=(LogoutRequest)request;
-//            UserDTO udto=(UserDTO)request.data();
-//            User user=DTOUtils.getFromDTO(udto);
-//            try {
-//                server.logout(user, this);
-//                connected=false;
-//                return okResponse;
-//
-//            } catch (MyException e) {
-//                return new Response.Builder().type(ResponseType.ERROR).data(e.getMessage()).build();
-//            }
-//        }
-
-        return response;
+        return null;
     }
-
 
     private void sendResponse(Response response) throws IOException {
         System.out.println("sending response " + response);

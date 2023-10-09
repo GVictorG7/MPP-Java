@@ -20,8 +20,6 @@ public interface IService extends Remote, Serializable {
 
     List<Participant> getAllParticipanti() throws RemoteException;
 
-    // List<Echipe> getAllEchipe() throws RemoteException;
-
     void saveParticipant(int id, String nume, String echipa, int cap, int idCursa) throws RemoteException;
 
     List<Participant> getByEchipe(String nume) throws RemoteException;

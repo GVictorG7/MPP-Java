@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class CurseJdbcRepo implements IRepository<Cursa> {
-    private JdbcUtils jdbcUtils;
+    private final JdbcUtils jdbcUtils;
 
     public CurseJdbcRepo(Properties properties) {
         jdbcUtils = new JdbcUtils(properties);
@@ -37,7 +37,7 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
             prep.setInt(1, cursa.getId());
             prep.setInt(2, cursa.getCap());
             prep.setInt(3, cursa.getNrPart());
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("err db" + ex);
         }
@@ -48,7 +48,7 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
         try (PreparedStatement prep = con.prepareStatement("update Curse set cap=? where id=?")) {
             prep.setInt(1, cursa.getCap());
             prep.setInt(2, cursa.getId());
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Curse update error" + ex);
             ex.printStackTrace();
@@ -60,7 +60,7 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
         Connection con = jdbcUtils.getConnection();
         try (PreparedStatement prep = con.prepareStatement("DELETE FROM Curse WHERE id=?")) {
             prep.setInt(1, id);
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("err db" + ex);
         }
@@ -87,7 +87,6 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
         try (PreparedStatement prep = con.prepareStatement("SELECT * FROM Curse")) {
             try (ResultSet res = prep.executeQuery()) {
                 while (res.next()) {
-                    //System.out.println(res.toString());
                     curse.add(new Cursa(res.getInt("id"), res.getInt("cap"), res.getInt("nrPart")));
                 }
             }

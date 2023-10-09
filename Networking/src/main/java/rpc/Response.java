@@ -6,16 +6,7 @@ public class Response implements Serializable {
     private ResponseType type;
     private Object data;
 
-    public Response(ResponseType type, Object data) {
-        this.type = type;
-        this.data = data;
-    }
-
     private Response() {
-    }
-
-    public Response(ResponseType type) {
-        this.type = type;
     }
 
     @Override
@@ -26,11 +17,11 @@ public class Response implements Serializable {
                 '}';
     }
 
-    public ResponseType type() {
+    ResponseType type() {
         return type;
     }
 
-    public Object data() {
+    Object data() {
         return data;
     }
 
@@ -42,20 +33,20 @@ public class Response implements Serializable {
         this.data = data;
     }
 
-    public static class Builder {
-        private Response response = new Response();
+    static class Builder {
+        private final Response response = new Response();
 
-        public Builder type(ResponseType type) {
+        Builder type(ResponseType type) {
             response.type(type);
             return this;
         }
 
-        public Builder data(Object data) {
+        Builder data(Object data) {
             response.data(data);
             return this;
         }
 
-        public Response build() {
+        Response build() {
             return response;
         }
     }

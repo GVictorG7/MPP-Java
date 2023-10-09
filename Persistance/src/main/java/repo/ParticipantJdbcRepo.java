@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class ParticipantJdbcRepo implements IRepository<Participant> {
-    private JdbcUtils jdbcUtils;
+    private final JdbcUtils jdbcUtils;
 
     public ParticipantJdbcRepo(Properties props) {
         jdbcUtils = new JdbcUtils(props);
@@ -55,7 +55,7 @@ public class ParticipantJdbcRepo implements IRepository<Participant> {
             preStmt.setString(3, participant.getEchipa());
             preStmt.setInt(4, participant.getCap());
             preStmt.setInt(5, participant.getIdCursa());
-            int res = preStmt.executeUpdate();
+            preStmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Err DB save: " + ex);
             ex.printStackTrace();
@@ -73,10 +73,9 @@ public class ParticipantJdbcRepo implements IRepository<Participant> {
                 System.out.println("Error DB save update Cursa: " + ex);
                 ex.printStackTrace();
             }
-            // System.out.println(resultCount);
             preStmt2.setInt(1, resultCount);
             preStmt2.setInt(2, participant.getIdCursa());
-            int result = preStmt2.executeUpdate();
+            preStmt2.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Error DB save update Cursa " + ex);
             ex.printStackTrace();
@@ -88,7 +87,7 @@ public class ParticipantJdbcRepo implements IRepository<Participant> {
         Connection con = jdbcUtils.getConnection();
         try (PreparedStatement prep = con.prepareStatement("DELETE FROM Participanti WHERE id=?")) {
             prep.setInt(1, id);
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("err DB " + ex);
             ex.printStackTrace();
@@ -102,7 +101,8 @@ public class ParticipantJdbcRepo implements IRepository<Participant> {
             prep.setInt(1, id);
             try (ResultSet resultSet = prep.executeQuery()) {
                 if (resultSet.next()) {
-                    return new Participant(resultSet.getInt("id"), resultSet.getString("nume"), resultSet.getString("echipa"), resultSet.getInt("cap"), resultSet.getInt("idCursa"));
+                    return new Participant(resultSet.getInt("id"), resultSet.getString("nume"),
+                            resultSet.getString("echipa"), resultSet.getInt("cap"), resultSet.getInt("idCursa"));
                 }
             }
         } catch (SQLException ex) {

@@ -9,16 +9,7 @@ public class Request implements Serializable {
     private Request() {
     }
 
-    public Request(RequestType type) {
-        this.type = type;
-    }
-
-    public Request(RequestType type, Object data) {
-        this.type = type;
-        this.data = data;
-    }
-
-    public RequestType type() {
+    RequestType type() {
         return type;
     }
 
@@ -26,7 +17,7 @@ public class Request implements Serializable {
         this.type = type;
     }
 
-    public Object data() {
+    Object data() {
         return data;
     }
 
@@ -42,20 +33,20 @@ public class Request implements Serializable {
                 '}';
     }
 
-    public static class Builder {
-        private Request request = new Request();
+    static class Builder {
+        private final Request request = new Request();
 
-        public Builder type(RequestType type) {
+        Builder type(RequestType type) {
             request.type(type);
             return this;
         }
 
-        public Builder data(Object data) {
+        Builder data(Object data) {
             request.data(data);
             return this;
         }
 
-        public Request build() {
+        Request build() {
             return request;
         }
     }

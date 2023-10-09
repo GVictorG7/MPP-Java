@@ -16,13 +16,13 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class ClientRPCProxy implements IService {
-    private String host;
-    private int port;
+    private final String host;
+    private final int port;
     private IObserver client;
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private Socket connection;
-    private BlockingQueue<Response> qresponses;
+    private final BlockingQueue<Response> qresponses;
     private volatile boolean finished;
 
     public ClientRPCProxy(String host, int port) {
@@ -31,7 +31,7 @@ public class ClientRPCProxy implements IService {
         qresponses = new LinkedBlockingQueue<>();
     }
 
-    private void initializeConnection() throws MyException {
+    private void initializeConnection() {
         try {
             connection = new Socket(host, port);
             output = new ObjectOutputStream(connection.getOutputStream());
@@ -52,11 +52,9 @@ public class ClientRPCProxy implements IService {
     private void handleUpdate(Response response) {
         if (response.type() == ResponseType.ADD_PARTICIPANT_TO_A_CURSA) {
             System.out.println("Inintea de creare");
-            Thread t1 = new Thread(new Runnable() {
-                public void run() {
-                    System.out.println("dupa creare");
-                    client.update();
-                }
+            Thread t1 = new Thread(() -> {
+                System.out.println("dupa creare");
+                client.update();
             });
             t1.start();
         }
@@ -78,10 +76,6 @@ public class ClientRPCProxy implements IService {
     private Response readResponse() throws MyException {
         Response response = null;
         try {
-            /*synchronized (responses){
-                responses.wait();
-            }
-            response = responses.remove(0);    */
             response = qresponses.take();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -167,26 +161,6 @@ public class ClientRPCProxy implements IService {
         return allParticipanti;
     }
 
-//    @Override
-//    public List<Echipe> getAllEchipe() {
-//        List<Echipe> allParticipanti = null;
-//        try {
-//            Request request = new Request.Builder().type(RequestType.GET_ALL_ECHIPE).build();
-//            sendRequest(request);
-//            Response response = readResponse();
-//
-//            if (response.type() == ResponseType.ERROR) {
-//                String err = response.data().toString();
-//                throw new MyException(err);
-//            }
-//            allParticipanti = (List<Echipe>) response.data();
-//        } catch (MyException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return allParticipanti;
-//    }
-
     @Override
     public void saveParticipant(int id, String nume, String echipa, int cap, int idCursa) {
         Participant participantProba = new Participant(id, nume, echipa, cap, idCursa);
@@ -226,7 +200,7 @@ public class ClientRPCProxy implements IService {
     }
 
     @Override
-    public void addObserever(/* String username, */IObserver observer) {
+    public void addObserever(IObserver observer) {
         this.client = observer;
     }
 

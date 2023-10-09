@@ -7,10 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class CurseJdbcRepo implements IRepository<Cursa> {
-    private JdbcUtils jdbcUtils;
+    private final JdbcUtils jdbcUtils;
 
     public CurseJdbcRepo(Properties properties) {
         jdbcUtils = new JdbcUtils(properties);
@@ -35,7 +36,7 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
         try (PreparedStatement prep = con.prepareStatement("INSERT INTO Curse VALUES (?,?)")) {
             prep.setInt(1, cursa.getId());
             prep.setInt(2, cursa.getCap());
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("err db" + ex);
         }
@@ -46,7 +47,7 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
         Connection con = jdbcUtils.getConnection();
         try (PreparedStatement prep = con.prepareStatement("DELETE FROM Curse WHERE id=?")) {
             prep.setInt(1, id);
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("err db" + ex);
         }
@@ -82,7 +83,7 @@ public class CurseJdbcRepo implements IRepository<Cursa> {
         return curse;
     }
 
-    public ArrayList<Cursa> getCurseByCap(int cap) {
+    public List<Cursa> getCurseByCap(int cap) {
         ArrayList<Cursa> curse = new ArrayList<>();
         Connection con = jdbcUtils.getConnection();
         try (PreparedStatement prep = con.prepareStatement("SELECT * FROM Curse WHERE cap=>")) {

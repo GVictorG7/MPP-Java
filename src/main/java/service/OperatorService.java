@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class OperatorService implements Observable<Operator> {
-    private ArrayList<Observer<Operator>> operatorObserver = new ArrayList<>();
-    private OperatorJdbcRepo repo;
+    private final List<Observer<Operator>> operatorObserver = new ArrayList<>();
+    private final OperatorJdbcRepo repo;
 
     public OperatorService(Properties properties) {
         repo = new OperatorJdbcRepo(properties);

@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.rmi.Remote;
 
 public class Participant implements Serializable, Remote {
-    private int id;
-    private String nume;
-    private String echipa;
-    private int cap;
+    private final int id;
+    private final String nume;
+    private final String echipa;
+    private final int cap;
     private int idCursa;
 
     public Participant(int id, String nume, String echipa, int cap) {

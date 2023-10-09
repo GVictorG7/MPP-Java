@@ -1,6 +1,6 @@
 package repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IRepository<T> {
     int size();
@@ -11,5 +11,5 @@ public interface IRepository<T> {
 
     T findOne(int id);
 
-    ArrayList<T> findAll();
+    List<T> findAll();
 }

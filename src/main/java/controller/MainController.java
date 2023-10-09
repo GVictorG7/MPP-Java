@@ -19,9 +19,8 @@ import utils.Observer;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class MainController implements Observer<Participant> {
     @FXML
@@ -33,17 +32,15 @@ public class MainController implements Observer<Participant> {
     @FXML
     TableColumn tableColumnCapacitate;
     @FXML
-    TableColumn tableColumnNr;
-    @FXML
     TableColumn tableColumnNume;
     @FXML
     TableColumn tableColumnCapEchipe;
     @FXML
     ComboBox<Integer> comboBox;
     private ObservableList<Participant> participants = FXCollections.observableArrayList();
-    private ObservableList<Cursa> curse;
-    private CursaService cursaService;
-    private ParticipantiService participantiService;
+    private final ObservableList<Cursa> curse;
+    private final CursaService cursaService;
+    private final ParticipantiService participantiService;
     @FXML
     private TextField searchEchipa;
     @FXML
@@ -78,7 +75,7 @@ public class MainController implements Observer<Participant> {
 
     @Override
     public void notifyEvent(ListEvent<Participant> e) {
-        participants.setAll(StreamSupport.stream(e.getList().spliterator(), false).collect(Collectors.toList()));
+        participants.setAll(new ArrayList<>(e.getList()));
     }
 
     @FXML

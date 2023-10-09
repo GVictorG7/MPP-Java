@@ -12,22 +12,22 @@ import java.util.List;
 import java.util.Properties;
 
 public class CursaService implements Observable<Cursa> {
-    private ArrayList<Observer<Cursa>> cursaObserver = new ArrayList<>();
-    private CurseJdbcRepo repo;
+    private final List<Observer<Cursa>> cursaObserver = new ArrayList<>();
+    private final CurseJdbcRepo repo;
 
     public CursaService(Properties properties) {
         repo = new CurseJdbcRepo(properties);
     }
 
-    public ArrayList<Cursa> getCurseByCap(int cap) {
+    public List<Cursa> getCurseByCap(int cap) {
         return repo.getCurseByCap(cap);
     }
 
-    public ArrayList<Cursa> getCurse() {
+    public List<Cursa> getCurse() {
         return repo.findAll();
     }
 
-    public ArrayList<Integer> getCap() {
+    public List<Integer> getCap() {
         ArrayList<Integer> rez = new ArrayList<>();
         for (Cursa c : getCurse()) {
             if (!rez.contains(c.getCap())) rez.add(c.getCap());

@@ -5,10 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public abstract class AbstractServer {
-    private int port;
+    private final int port;
     private ServerSocket server = null;
 
-    public AbstractServer(int port) {
+    AbstractServer(int port) {
         this.port = port;
     }
 
@@ -31,7 +31,7 @@ public abstract class AbstractServer {
 
     protected abstract void processRequest(Socket client);
 
-    public void stop() throws ServerException {
+    private void stop() throws ServerException {
         try {
             server.close();
         } catch (IOException e) {

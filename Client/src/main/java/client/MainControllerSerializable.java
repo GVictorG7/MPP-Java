@@ -15,15 +15,9 @@ public class MainControllerSerializable implements IObserver, Serializable, Remo
         this.srv = service;
     }
 
-//    public void handleLogOut(ActionEvent event) throws IOException {
-//    }
-
     public void handleSaveParticipant(int id, String nume, String echipa, int cap, int idC) throws RemoteException {
         srv.saveParticipant(id, nume, echipa, cap, idC);
     }
-
-//    public void initialize(StageManager stageManager, IService service) {
-//    }
 
     @Override
     public void update() {

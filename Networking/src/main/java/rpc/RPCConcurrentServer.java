@@ -6,7 +6,7 @@ import utils.AbsConcurrentServer;
 import java.net.Socket;
 
 public class RPCConcurrentServer extends AbsConcurrentServer {
-    private IService service;
+    private final IService service;
 
     public RPCConcurrentServer(int port, IService service) {
         super(port);
@@ -17,7 +17,6 @@ public class RPCConcurrentServer extends AbsConcurrentServer {
     @Override
     protected Thread createWorker(Socket client) {
         ServerRPCWorker worker = new ServerRPCWorker(service, client);
-        Thread tw = new Thread(worker);
-        return tw;
+        return new Thread(worker);
     }
 }

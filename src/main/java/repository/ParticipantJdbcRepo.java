@@ -7,10 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class ParticipantJdbcRepo implements IRepository<Participant> {
-    private JdbcUtils jdbcUtils;
+    private final JdbcUtils jdbcUtils;
 
     public ParticipantJdbcRepo(Properties props) {
         jdbcUtils = new JdbcUtils(props);
@@ -55,7 +56,7 @@ public class ParticipantJdbcRepo implements IRepository<Participant> {
             preStmt.setString(3, participant.getEchipa());
             preStmt.setInt(4, participant.getCap());
             preStmt.setInt(5, participant.getIdCursa());
-            int res = preStmt.executeUpdate();
+            preStmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Err DB " + ex);
         }
@@ -66,7 +67,7 @@ public class ParticipantJdbcRepo implements IRepository<Participant> {
         Connection con = jdbcUtils.getConnection();
         try (PreparedStatement prep = con.prepareStatement("DELETE FROM Participanti WHERE id=?")) {
             prep.setInt(1, id);
-            int res = prep.executeUpdate();
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("err DB " + ex);
         }
@@ -104,7 +105,7 @@ public class ParticipantJdbcRepo implements IRepository<Participant> {
         return operators;
     }
 
-    public ArrayList<Participant> getParticipantiByEchipa(String echipa) {
+    public List<Participant> getParticipantiByEchipa(String echipa) {
         Connection con = jdbcUtils.getConnection();
         ArrayList<Participant> operators = new ArrayList<>();
         try (PreparedStatement prep = con.prepareStatement("SELECT * FROM Participanti WHERE echipa=?")) {

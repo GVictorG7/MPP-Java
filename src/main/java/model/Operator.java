@@ -1,9 +1,9 @@
 package model;
 
 public class Operator {
-    private int id;
-    private String name;
-    private String pass;
+    private final int id;
+    private final String name;
+    private final String pass;
 
     public Operator(int id, String name, String pass) {
         this.id = id;

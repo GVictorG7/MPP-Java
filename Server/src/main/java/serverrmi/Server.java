@@ -16,10 +16,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Server implements IService, Serializable {
-    private OperatorJdbcRepo operatorRepo;
-    private CurseJdbcRepo curseRepo;
-    private ParticipantJdbcRepo participantRepo;
-    private Map<Integer, IObserver> loggedOperators;
+    private final OperatorJdbcRepo operatorRepo;
+    private final CurseJdbcRepo curseRepo;
+    private final ParticipantJdbcRepo participantRepo;
+    private final Map<Integer, IObserver> loggedOperators;
 
     public Server(OperatorJdbcRepo operatorRepo, CurseJdbcRepo curseRepo, ParticipantJdbcRepo participantRepo) {
         this.operatorRepo = operatorRepo;
@@ -72,11 +72,6 @@ public class Server implements IService, Serializable {
         return participantRepo.findAll();
     }
 
-//    @Override
-//    public synchronized List<Echipe> getAllEchipe() {
-//        return echipeRepository.findAll();
-//    }
-
     @Override
     public synchronized void saveParticipant(int id, String nume, String echipa, int cap, int idCursa) {
         participantRepo.save(new Participant(id, nume, echipa, cap, idCursa));
@@ -90,7 +85,7 @@ public class Server implements IService, Serializable {
 
     @Override
     public void addObserever(IObserver observer) {
-        loggedOperators.put(1, observer); //nu-i okay :/
+        loggedOperators.put(1, observer);
     }
 
     private void notifyMyObservers() {

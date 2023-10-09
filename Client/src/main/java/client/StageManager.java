@@ -16,9 +16,7 @@ public class StageManager {
 
     public synchronized void switchScene(final FXMLEnum view, Parent rootNode, IController controller) {
         controller.initialize(this, service);
-        Parent viewRootNodeHierarchy = rootNode;
-//        Parent viewRootNodeHierarchy = loadViewNodeHierarchy(view.getFxmlFile());
-        show(viewRootNodeHierarchy, view.getTitle());
+        show(rootNode, view.getTitle());
     }
 
     private void show(final Parent rootnode, String title) {

@@ -1,8 +1,8 @@
 package model;
 
 public class Cursa {
-    private int id;
-    private int cap;
+    private final int id;
+    private final int cap;
 
     public Cursa(int id, int cap) {
         this.id = id;

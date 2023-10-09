@@ -21,14 +21,6 @@ public class OperatorController implements IController, Remote {
     private PasswordField pass;
     private StageManager stageManager;
     private IService service;
-//    private MainControllerSerializable controller;
-
-    public OperatorController() {
-    }
-
-//    public void addController(MainControllerSerializable controller) {
-//        this.controller = controller;
-//    }
 
     @FXML
     public void handleLogin(ActionEvent actionEvent) {
@@ -36,25 +28,10 @@ public class OperatorController implements IController, Remote {
             login();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainFXML.fxml"));
             Parent rootNode = loader.load();
-//            MainController mainController = loader.getController();
-//            mainController.setController(controller);
             stageManager.switchScene(FXMLEnum.MAIN, rootNode, loader.getController());
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        if (service.login(Integer.parseInt(user.getText()), pass.getText())) {
-//            Stage parent = (Stage) user.getScene().getWindow();
-//            parent.hide();
-//            try {
-//                Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainFXML.fxml"));
-//                Stage stage = new Stage();
-//                stage.setTitle("Main");
-//                stage.setScene(new Scene(root, 650, 480));
-//                stage.show();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     private Operator login() {

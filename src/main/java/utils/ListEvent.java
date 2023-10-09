@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class ListEvent<E> {
     private ListEventType type;
 
-    public ListEvent(ListEventType type) {
+    protected ListEvent(ListEventType type) {
         this.type = type;
     }
 

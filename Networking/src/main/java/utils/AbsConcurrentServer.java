@@ -3,7 +3,7 @@ package utils;
 import java.net.Socket;
 
 public abstract class AbsConcurrentServer extends AbstractServer {
-    public AbsConcurrentServer(int port) {
+    protected AbsConcurrentServer(int port) {
         super(port);
         System.out.println("Concurrent AbstractServer");
     }

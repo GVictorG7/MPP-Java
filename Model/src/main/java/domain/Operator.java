@@ -11,7 +11,6 @@ import java.rmi.Remote;
 @Table(name = "Operatori")
 public class Operator implements Serializable, Remote {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -26,11 +25,6 @@ public class Operator implements Serializable, Remote {
 
     public Operator(int id, String name, String pass) {
         this.id = id;
-        this.name = name;
-        this.pass = pass;
-    }
-
-    public Operator(String name, String pass) {
         this.name = name;
         this.pass = pass;
     }

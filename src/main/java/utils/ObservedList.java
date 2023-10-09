@@ -55,5 +55,4 @@ public class ObservedList<E> extends ArrayList<E> implements Observable<E> {
             o.notifyEvent(e);
         }
     }
-
 }
