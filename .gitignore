@@ -43,7 +43,8 @@
 # .idea/modules
 *.iml
 # *.ipr
-
+*.jar
+*.db
 # CMake
 cmake-build-*/
 
@@ -103,7 +104,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
